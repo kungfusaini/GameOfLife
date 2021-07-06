@@ -1,0 +1,8 @@
+Iterate over all cells not just alive cells
+Implement correct birthing conditions
+Implement correct death conditions
+Spawn new cells before deleting old cells
+Implement stop and start buttons
+Implement speed of simulation slider
+Allow clicking on cells to create live cells
+Allow changing colour of cells from GUI
