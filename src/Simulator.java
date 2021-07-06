@@ -16,8 +16,8 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.2;
 
-    // List of animals in the field.
-    private List<Animal> animals;
+    // List of cells in the field.
+    private List<Cell> cells;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -39,7 +39,7 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<>();
+        cells = new ArrayList<>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
@@ -66,20 +66,20 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
-        // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<>();        
+        // Provide space for newborn cells.
+        List<Cell> newCells = new ArrayList<>();        
         // Let all rabbits act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
+        for(Iterator<Cell> it = cells.iterator(); it.hasNext(); ) {
             System.out.println("Hello");
-            Animal animal = it.next();
-            animal.act(newAnimals);
-            if(! animal.isAlive()) {
+            Cell cell = it.next();
+            cell.act(newCells);
+            if(! cell.isAlive()) {
                 it.remove();
             }
         }
                
         // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
+        cells.addAll(newCells);
 
         view.showStatus(step, field);
     }
@@ -87,7 +87,7 @@ public class Simulator
     public void reset()
     {
         step = 0;
-        animals.clear();
+        cells.clear();
         populate();
         
         // Show the starting state in the view.
@@ -102,8 +102,8 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Cell cell = new Cell(true, field, location);
-                    animals.add(cell);
+                    Cell cell = new Cell(field, location);
+                    cells.add(cell);
                 }
                 // else leave the location empty.
             }
