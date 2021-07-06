@@ -70,7 +70,6 @@ public class Simulator
         List<Cell> newCells = new ArrayList<>();        
         // Let all rabbits act.
         for(Iterator<Cell> it = cells.iterator(); it.hasNext(); ) {
-            System.out.println("Hello");
             Cell cell = it.next();
             cell.act(newCells);
             if(! cell.isAlive()) {

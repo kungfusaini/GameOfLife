@@ -42,14 +42,18 @@ public class Cell
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
+        // Field field = getField();
+        // List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        // int births = breed();
+        // for(int b = 0; b < births && free.size() > 0; b++) {
+        //     Location loc = free.remove(0);
+        //     Cell young = new Cell(field, loc);
+        //     newCells.add(young);
+        // }
         Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Cell young = new Cell(field, loc);
-            newCells.add(young);
-        }
+        List<Location> surroundingCells = field.adjacentLocations(location);
+        System.out.println(surroundingCells);
+
     }
         
     private int breed()
