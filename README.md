@@ -9,10 +9,10 @@ A desktop application for running Conway's Game of Life.
 If a cell is alive:
 <ol>
     <li> If there are more than 3 live neighbors, die of overpopulation </li>
-    <li> If there are less than 2 live neighbors, die of lonliness </li>
+    <li> If there are less than 2 live neighbors, die of loneliness </li>
 </ol>
 
 If a cell is dead:
 <ol>
-    <li> If there are exactly 3 live neighbors, return to life </li>
+    <li> If there are exactly 3 live neighbors, come to life </li>
 </ol>
