@@ -3,6 +3,8 @@ package src;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,12 +17,12 @@ public class SimulatorView extends JFrame
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
-    private final String POPULATION_PREFIX = "Population: ";
+    private final String POPULATION_PREFIX = "Alive Cells: ";
     private JLabel stepLabel, population, infoLabel;
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
-    private Map<Class, Color> colors;
+    private Map<Class, ArrayList<Color>> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
 
@@ -50,9 +52,13 @@ public class SimulatorView extends JFrame
         setVisible(true);
     }
     
-    public void setColor(Class animalClass, Color color)
+    public void setColor(Class animalClass, Color aliveColor, Color deadColor)
     {
-        colors.put(animalClass, color);
+        ArrayList<Color> colourList = new ArrayList<>();
+        colourList.add(aliveColor); 
+        colourList.add(deadColor); 
+        colors.put(animalClass, colourList);
+        System.out.println(colors);
     }
 
     public void setInfoText(String text)
@@ -60,9 +66,14 @@ public class SimulatorView extends JFrame
         infoLabel.setText(text);
     }
 
-    private Color getColor(Class animalClass)
+    private Color getColor(Class animalClass, boolean isAlive)
     {
-        Color col = colors.get(animalClass);
+        int colorIndex= 0;
+        ArrayList<Color> colorList = colors.get(animalClass);
+        if(!isAlive){
+            colorIndex = 1;
+        }
+        Color col = colorList.get(colorIndex);
         if(col == null) {
             // no color defined for this class
             return UNKNOWN_COLOR;
@@ -85,10 +96,12 @@ public class SimulatorView extends JFrame
 
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
+                Cell animal = field.getObjectAt(row, col);
                 if(animal != null) {
-                    stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+                    fieldView.drawMark(col, row, getColor(animal.getClass(),animal.isAlive()));
+                    if(animal.isAlive()){
+                        stats.incrementCount(animal.getClass());
+                    }
                 }
                 else {
                     fieldView.drawMark(col, row, EMPTY_COLOR);

@@ -1,6 +1,7 @@
 package src;
 
 import java.util.List;
+import java.lang.Math;
 
 /**
  * A class representing shared characteristics of animals.
@@ -12,15 +13,23 @@ public class Cell
     private boolean alive;
     private Field field;
     private Location location;
+    private static double birthRate;
     
     /**
      * Create a new animal at location in field.
      */
     public Cell(Field field, Location location)
     {
+        alive = false;
+        if(Math.random() < birthRate){
         alive = true;
+        }
         this.field = field;
         setLocation(location);
+    }
+
+    public static void setBirthRate(double birthRateIn){
+        birthRate = birthRateIn;
     }
     
     public void act(List<Cell> newCells){
@@ -50,9 +59,11 @@ public class Cell
         //     Cell young = new Cell(field, loc);
         //     newCells.add(young);
         // }
-        Field field = getField();
-        List<Location> surroundingCells = field.adjacentLocations(location);
-        System.out.println(surroundingCells);
+
+        // BIRTH CODE FOR NOW!
+        // Field field = getField();
+        // List<Location> surroundingCells = field.adjacentLocations(location);
+        // System.out.println(surroundingCells);
 
     }
         

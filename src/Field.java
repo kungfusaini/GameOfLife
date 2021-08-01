@@ -13,14 +13,14 @@ public class Field
     
     // The depth and width of the field.
     private int depth, width;
-    // Storage for the animals.
-    private Object[][] field;
+    // Storage for the cells.
+    private Cell[][] field;
 
     public Field(int depth, int width)
     {
         this.depth = depth;
         this.width = width;
-        field = new Object[depth][width];
+        field = new Cell[depth][width];
     }
    
     public void clear()
@@ -37,22 +37,22 @@ public class Field
         field[location.getRow()][location.getCol()] = null;
     }
     
-    public void place(Object animal, int row, int col)
+    public void place(Cell cell, int row, int col)
     {
-        place(animal, new Location(row, col));
+        place(cell, new Location(row, col));
     }
     
-    public void place(Object animal, Location location)
+    public void place(Cell cell, Location location)
     {
-        field[location.getRow()][location.getCol()] = animal;
+        field[location.getRow()][location.getCol()] = cell;
     }
     
-    public Object getObjectAt(Location location)
+    public Cell getObjectAt(Location location)
     {
         return getObjectAt(location.getRow(), location.getCol());
     }
     
-    public Object getObjectAt(int row, int col)
+    public Cell getObjectAt(int row, int col)
     {
         return field[row][col];
     }
