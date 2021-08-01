@@ -55,7 +55,7 @@ public class Simulator {
     public void simulate(int numSteps) {
         for (int step = 1; step <= numSteps; step++) {
             simulateOneStep();
-            delay(300); // uncomment this to run more slowly
+            // delay(300); // uncomment this to run more slowly
         }
     }
 
@@ -63,18 +63,28 @@ public class Simulator {
         step++;
         // Provide space for newborn cells.
         List<Cell> newCells = new ArrayList<>();
+        List<Cell> deathRow = new ArrayList<>();
         // Let all rabbits act.
         for (Iterator<Cell> it = cells.iterator(); it.hasNext();) {
             Cell cell = it.next();
-            System.out.println(cells.size());
-            cell.act(newCells);
-            if (!cell.isAlive()) {
-                it.remove();
+            //System.out.println(cells.size());
+            cell.act();
+            if (cell.isMarkedForDeath()){
+                deathRow.add(cell);
+            }
+            if(cell.isMarkedForLife()){
+                newCells.add(cell);
             }
         }
 
         // Add the newly born foxes and rabbits to the main lists.
-        cells.addAll(newCells);
+        for(Cell toKill : deathRow){
+            toKill.setDead();
+        }
+
+        for(Cell toBirth : newCells){
+            toBirth.setAlive();
+        }
 
         view.showStatus(step, field);
     }

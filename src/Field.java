@@ -63,12 +63,12 @@ public class Field
         return adjacent.get(0);
     }
     
-    public List<Location> getFreeAdjacentLocations(Location location)
+    public List<Location> getOccupiedAdjacentLocations(Location location)
     {
         List<Location> free = new LinkedList<>();
         List<Location> adjacent = adjacentLocations(location);
         for(Location next : adjacent) {
-            if(getObjectAt(next) == null) {
+            if(getObjectAt(next).isAlive()) {
                 free.add(next);
             }
         }
@@ -78,7 +78,7 @@ public class Field
     public Location freeAdjacentLocation(Location location)
     {
         // The available free ones.
-        List<Location> free = getFreeAdjacentLocations(location);
+        List<Location> free = getOccupiedAdjacentLocations(location);
         if(free.size() > 0) {
             return free.get(0);
         }
