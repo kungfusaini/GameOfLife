@@ -7,8 +7,12 @@ A desktop application for running Conway's Game of Life.
 ## The Rules
 
 If a cell is alive:
-    1. If there are more than 3 live neighbors, die of overpopulation
-    2. If there are less than 2 live neighbors, die of lonliness
+<ol>
+    <li> If there are more than 3 live neighbors, die of overpopulation </li>
+    <li> If there are less than 2 live neighbors, die of lonliness </li>
+</ol>
 
 If a cell is dead:
-    1. If there are exactly 3 live neighbors, return to life
+<ol>
+    <li> If there are exactly 3 live neighbors, return to life </li>
+</ol>
